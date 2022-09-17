@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="order_view_tree" model="ir.ui.view">
+        <field name="name">order_view_tree</field>
+        <field name="model">restaurant.order</field>
+        <field name="arch" type="xml">
+            <tree string="order_tree">
+                <field name="name"/>
+                <field name="member"/>
+                <field name="state"
+                       decoration-primary="state=='selesai'"
+                       decoration-success="state=='full'"
+                       decoration-warning="state=='kosong'"
+                       widget="badge"/>
+                <field name="jumlah_orang"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="order_view_form" model="ir.ui.view">
+        <field name="name">order_view_form</field>
+        <field name="model">restaurant.order</field>
+        <field name="arch" type="xml">
+            <form string="order_form">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="kosong,full,selesai"/>
+                    <button name="action_full" type="object" class="oe_highlight" string="Order"
+                            states="kosong"/>
+                    <button name="action_selesai" type="object" class="oe_highlight" string="Pembayaran" states="full"
+                            readonly="1"/>
+                    <button name="action_batal" string="Batal" states="full" special="cancel"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Done" bg-color="bg-success"
+                            attrs="{'invisibility': [('state','!=','selesai')]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group attrs="{'invisible': [('state','=','kosong')]}">
+                            <field name="name" attrs="{'readonly': [('state','=','selesai')]}"/>
+                            <field name="member" attrs="{'readonly': [('state','=','selesai')]}"/>
+                            <field name="member_ids"
+                                   attrs="{'invisible': [('member','=',False)], 'readonly': [('state','=','selesai')]}"/>
+                            <field name="jam_mulai" attrs="{'readonly': [('state','=','selesai')]}"/>
+                            <field name="jumlah_orang" attrs="{'readonly': [('state','=','selesai')]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('state','=','kosong')]}">
+                            <field name="tipe_pembayaran" widget="radio"
+                                   attrs="{'readonly': [('state','=','selesai')]}"/>
+                        </group>
+                    </group>
+                    <notebook colspan="8"
+                              attrs="{'invisible': [('state','=','kosong')]}">
+                        <page name="name" string="Pesanan">
+                            <field name="orderdetail_id" attrs="{'readonly': [('state','=','selesai')]}">
+                                <tree editable="bottom" create="true" edit="true" delete="true">
+                                    <field name="menu_id"/>
+                                    <field name="harga_menu"/>
+                                    <field name="qty"/>
+                                    <field name="jumlah"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2"
+                                   attrs="{'invisible': [('state','=','kosong')]}">
+                                <field name="total" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <field name="pajak" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="diskon" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                </div>
+                                <field name="subtotal" nolabel="1" class="oe_subtotal_footer_separator"
+                                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <div class="oe_clear"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="order_view_action" model="ir.actions.act_window">
+        <field name="name">Dine In</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="order_menu_categ"
+              name="Dine In"
+              parent="order_root"
+              action="order_view_action"
+              sequence="10"/>
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="menu_makanan_view_tree" model="ir.ui.view">
+        <field name="name">menu_makanan_view_tree</field>
+        <field name="model">restaurant.menu_makanan</field>
+        <field name="arch" type="xml">
+            <tree string="menu_makanan_tree">
+                <field name="name"/>
+                <field name="tipe"/>
+                <field name="harga_menu"/>
+            </tree>
+        </field>
+    </record>
+    <record id="menu_makanan_kanban" model="ir.ui.view">
+        <field name="name">menu_makanan_kanban</field>
+        <field name="model">restaurant.menu_makanan</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="tipe"/>
+                <field name="harga_menu"/>
+                <field name="img_makanan" widget="image" class="img-circle" width="50" height="75"/>
+                <field name="deskripsi"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe kanban_global_click">
+                            <div class="oe_kanban_global">
+                                <div class="container">
+                                    <group>
+                                        <group>
+                                            <field name="img_makanan" widget="image" class="img-circle" width="100"
+                                                   height="100"/>
+                                        </group>
+                                        <group>
+                                            <ul>
+                                            <field name="name"/>
+                                            <field name="tipe"/>
+                                            <field name="harga_menu"/>
+                                            </ul>
+                                        </group>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="menu_makanan_view_form" model="ir.ui.view">
+        <field name="name">menu_makanan_view_form</field>
+        <field name="model">restaurant.menu_makanan</field>
+        <field name="arch" type="xml">
+            <form string="menu_makanan_form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="tipe" widget="radio"/>
+                            <field name="harga_menu"/>
+                            <field name="deskripsi"/>
+                        </group>
+                        <group>
+                            <field name="img_makanan" widget="image" class="oe_avatar"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="menu_makanan_action" model="ir.actions.act_window">
+        <field name="name">Menu Makanan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.menu_makanan</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="menu_makanan_categ"
+              name="Menu Makanan"
+              parent="menu_root"
+              action="menu_makanan_action"
+              sequence="30"/>
+</odoo>

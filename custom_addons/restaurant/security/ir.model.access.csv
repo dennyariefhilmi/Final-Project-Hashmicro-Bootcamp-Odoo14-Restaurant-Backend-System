@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_restaurant_inventory,restaurant.inventory,model_restaurant_inventory,base.group_user,1,1,1,1
+access_restaurant_bahan,restaurant.bahan,model_restaurant_bahan,base.group_user,1,1,1,1
+access_restaurant_supplier,restaurant.supplier,model_restaurant_supplier,base.group_user,1,1,1,1
+access_restaurant_menu_makanan,restaurant.menu_makanan,model_restaurant_menu_makanan,base.group_user,1,1,1,1
+access_restaurant_order,restaurant.order,model_restaurant_order,base.group_user,1,1,1,1
+access_restaurant_orderdetail,restaurant.orderdetail,model_restaurant_orderdetail,base.group_user,1,1,1,1
+access_restaurant_member,restaurant.member,model_restaurant_member,base.group_user,1,1,1,1
+access_restaurant_antrian,restaurant.antrian,model_restaurant_antrian,base.group_user,1,1,1,1
+access_restaurant_karyawan,restaurant.karyawan,model_restaurant_karyawan,base.group_user,1,1,1,1
+access_restaurant_jadwal,restaurant.jadwal,model_restaurant_jadwal,base.group_user,1,1,1,1
+access_restaurant_pembatalan,restaurant.pembatalan,model_restaurant_pembatalan,base.group_user,1,1,1,1
+access_restaurant_delivery,restaurant.delivery,model_restaurant_delivery,base.group_user,1,1,1,1
+

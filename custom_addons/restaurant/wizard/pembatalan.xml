@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pembatalan_view_form" model="ir.ui.view">
+        <field name="name">pembatalan_view_form</field>
+        <field name="model">restaurant.pembatalan</field>
+        <field name="arch" type="xml">
+            <form string="Alasan Pembatalan">
+                    <group>
+                        <field name="name"/>
+                        <field name="keterangan"/>
+                    </group>
+                <footer>
+                    <button name="action_pembatalan" string="OK" type="object" class="oe_highlight"/>
+                    <button name="action_cancel" string="Batal" type="object" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="pembatalan_view_wizard" model="ir.actions.act_window">
+        <field name="name">Alasan Pembatalan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.pembatalan</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="pembatalan_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>
+

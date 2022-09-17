@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="delivery_view_tree" model="ir.ui.view">
+        <field name="name">delivery_view_tree</field>
+        <field name="model">restaurant.delivery</field>
+        <field name="arch" type="xml">
+            <tree string="delivery_tree">
+                <field name="reference" readonly="1"/>
+                <field name="name"/>
+                <field name="driver_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="delivery_view_form" model="ir.ui.view">
+        <field name="name">delivery_view_form</field>
+        <field name="model">restaurant.delivery</field>
+        <field name="arch" type="xml">
+            <form string="delivery_form">
+                <header>
+                    <field name="state" widget="statusbar" class="oe_highlight"
+                           statusbar_visible="'pesanan,diantar,selesai"/>
+                    <button name="action_diantar" type="object" class="oe_highlight" string="Konfirmasi Pesanan"
+                            states="pesanan"/>
+                    <button name="action_selesai" type="object" class="oe_highlight" string="Selesai" states="diantar"/>
+                    <button name="action_batal" string="Batal" states="pesanan" special="cancel"/>
+                    <button name="%(restaurant.pembatalan_view_wizard)d" type="action" string="Batal"
+                            class="btn-secondary" states="diantar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="driver_id" attrs="{'invisible': [('state','=','pesanan')]}"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="delivery_view_action" model="ir.actions.act_window">
+        <field name="name">Delivery</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.delivery</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="delivery_menu_categ"
+              name="Delivery Order"
+              parent="order_root"
+              action="delivery_view_action"
+              sequence="45"/>
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="karyawan_view_tree" model="ir.ui.view">
+        <field name="name">karyawan_view_tree</field>
+        <field name="model">restaurant.karyawan</field>
+        <field name="arch" type="xml">
+            <tree string="karyawan_tree">
+                <field name="name"/>
+                <field name="role"/>
+                <field name="status"/>
+                <field name="usia"/>
+                <field name="no_hp"/>
+                <field name="alamat"/>
+                <field name="lama_bekerja"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="karyawan_view_form" model="ir.ui.view">
+        <field name="name">karyawan_view_form</field>
+        <field name="model">restaurant.karyawan</field>
+        <field name="arch" type="xml">
+            <form string="karyawan_form">
+                <sheet>
+                    <group>
+                        <group>
+                            <div class="oe_title">
+                                <h2>
+                                    <field name="name"/>
+                                </h2>
+                            </div>
+                        </group>
+                        <group>
+                            <div class="oe_title">
+                                <h2>
+                                    <field name="reference"/>
+                                </h2>
+                            </div>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="role" widget="radio"/>
+                            <field name="no_hp"/>
+                            <field name="alamat"/>
+                        </group>
+                        <group>
+                            <field name="status" widget="radio"/>
+                            <field name="tanggal_lahir"/>
+                            <field name="mulai_bekerja"/>
+                        </group>
+                    </group>
+                    <notebook colspan="8">
+                        <page name="name" string="Jadwal">
+                            <field name="jadwal_ids">
+                                <tree editable='bottom'>
+                                    <field name="senin"/>
+                                    <field name="selasa"/>
+                                    <field name="rabu"/>
+                                    <field name="kamis"/>
+                                    <field name="jumat"/>
+                                    <field name="sabtu"/>
+                                    <field name="minggu"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="karyawan_view_action" model="ir.actions.act_window">
+        <field name="name">Karyawan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.karyawan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="karyawan_view_categ"
+              name="Karyawan"
+              parent="menu_root"
+              action="karyawan_view_action"
+              sequence="35"/>
+</odoo>

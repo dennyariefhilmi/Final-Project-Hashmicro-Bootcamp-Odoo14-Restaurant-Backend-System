@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="antrian_view_tree" model="ir.ui.view">
+        <field name="name">antrian_view_tree</field>
+        <field name="model">restaurant.antrian</field>
+        <field name="arch" type="xml">
+            <tree string="antrian_tree">
+                <field name="reference"/>
+                <field name="name"/>
+                <field name="qty"/>
+                <field name="no_hp"/>
+                <field name="jam_datang"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    <record model="ir.ui.view" id="antrian_view_kanban">-->
+<!--        <field name="name">antrian_view_kanban</field>-->
+<!--        <field name="model">restaurant.antrian</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <kanban>-->
+<!--                <div class="oe_title">-->
+<!--                    <h1>-->
+<!--                        <field name="reference" readonly="1"/>-->
+<!--                    </h1>-->
+<!--                </div>-->
+<!--                <field name="name"/>-->
+<!--                <field name="qty"/>-->
+<!--                <field name="jam_datang"/>-->
+<!--                <field name="no_hp"/>-->
+<!--                <templates>-->
+<!--                    <t t-name="kanban-box">-->
+<!--                        <div class="oe_kanban_global_click o_kanban_record_fill">-->
+<!--                            <div class="oe_kanban_details d-flex flex-column">-->
+<!--                                <ul>-->
+<!--                                    <li>-->
+<!--                                        <strong>Atas Nama :-->
+<!--                                            <field name="name"/>-->
+<!--                                        </strong>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <ul>-->
+<!--                                    <li>-->
+<!--                                        <strong>Jumlah Orang :-->
+<!--                                            <field name="qty"/>-->
+<!--                                        </strong>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <ul>-->
+<!--                                    <li>-->
+<!--                                        <strong>No.HP :-->
+<!--                                            <field name="no_hp"/>-->
+<!--                                        </strong>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                                <div class="oe_button_box" name="button_box">-->
+<!--                                    &lt;!&ndash;                                    <button name="create_action" string="Selesai" type="object" />&ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                            attrs="{'invisible':[('binding_model_id','!=',False)]}" icon="fa-plus-square" &ndash;&gt;-->
+<!--                                    &lt;!&ndash;                                            help="Display an option on related documents to print this report" class="oe_stat_button"/>&ndash;&gt;-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </t>-->
+<!--                </templates>-->
+<!--            </kanban>-->
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="antrian_view_form" model="ir.ui.view">
+        <field name="name">antrian_view_form</field>
+        <field name="model">restaurant.antrian</field>
+        <field name="arch" type="xml">
+            <form string="antrian_form">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="reference" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="qty"/>
+                        </group>
+                        <group>
+                            <field name="jam_datang"/>
+                            <field name="no_hp"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="antrian_view_action" model="ir.actions.act_window">
+        <field name="name">Antrian</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.antrian</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="antrian_menu_categ"
+              name="Antrian"
+              parent="order_root"
+              action="antrian_view_action"
+              sequence="30"/>
+</odoo>

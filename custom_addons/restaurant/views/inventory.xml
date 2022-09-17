@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inventory_view_tree" model="ir.ui.view">
+        <field name="name">inventory_view_tree</field>
+        <field name="model">restaurant.inventory</field>
+        <field name="arch" type="xml">
+            <tree string="inventory_tree">
+                <field name="name"/>
+                <field name="merk"/>
+                <field name="tipe"/>
+                <field name="qty"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="inventory_view_form" model="ir.ui.view">
+        <field name="name">inventory_view_form</field>
+        <field name="model">restaurant.inventory</field>
+        <field name="arch" type="xml">
+            <form string="inventory_form">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tipe" widget="radio" store="true"/>
+                            <field name="qty"/>
+                            <field name="deskripsi"/>
+                        </group>
+                        <group>
+                            <field name="merk"/>
+                            <field name="supplier_id"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="inventory_action" model="ir.actions.act_window">
+        <field name="name">Inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">restaurant.inventory</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="inventory_categ_menu"
+              name="Inventory"
+              parent="menu_root"
+              action="inventory_action"
+              sequence="10"/>
+</odoo>

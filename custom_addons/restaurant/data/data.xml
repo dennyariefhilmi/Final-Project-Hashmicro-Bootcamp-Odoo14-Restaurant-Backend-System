@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='seq_restaurant_karyawan' model="ir.sequence">
+            <field name="name">ID Karyawan Sequence</field>
+            <field name="code">restaurant.karyawan</field>
+            <field name="prefix">PK</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id='seq_restaurant_member' model="ir.sequence">
+            <field name="name">Member Sequence</field>
+            <field name="code">restaurant.member</field>
+            <field name="prefix">MM</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id='seq_restaurant_delivery' model="ir.sequence">
+            <field name="name">Delivery Sequence</field>
+            <field name="code">restaurant.delivery</field>
+            <field name="prefix">ABC</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id='seq_restaurant_antrian' model="ir.sequence">
+            <field name="name">Antrian Sequence</field>
+            <field name="code">restaurant.antrian</field>
+            <field name="prefix">No.</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!--    sequence untuk order    <!-->
+        <record id='seq_restaurant_order' model="ir.sequence">
+            <field name="name">Order Sequence</field>
+            <field name="code">restaurant.order</field>
+            <field name="prefix">PZ</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+    </data>
+</odoo>
