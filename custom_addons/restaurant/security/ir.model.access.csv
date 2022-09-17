@@ -11,4 +11,4 @@ access_restaurant_karyawan,restaurant.karyawan,model_restaurant_karyawan,base.gr
 access_restaurant_jadwal,restaurant.jadwal,model_restaurant_jadwal,base.group_user,1,1,1,1
 access_restaurant_pembatalan,restaurant.pembatalan,model_restaurant_pembatalan,base.group_user,1,1,1,1
 access_restaurant_delivery,restaurant.delivery,model_restaurant_delivery,base.group_user,1,1,1,1
-
+access_restaurant_deliverydetail,restaurant.deliverydetail,model_restaurant_deliverydetail,base.group_user,1,1,1,1

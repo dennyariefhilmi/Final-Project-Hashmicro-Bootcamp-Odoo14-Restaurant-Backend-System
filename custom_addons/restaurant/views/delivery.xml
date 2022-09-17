@@ -10,6 +10,8 @@
                 <field name="name"/>
                 <field name="driver_id"/>
                 <field name="state"/>
+                <field name="alamat"/>
+                <field name="jam_berangkat"/>
             </tree>
         </field>
     </record>
@@ -30,15 +32,53 @@
                             class="btn-secondary" states="diantar"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Done" bg-color="bg-success"
+                            attrs="{'invisibility': [('state','!=','selesai')]}"/>
                     <div class="oe_title">
                         <h1>
                             <field name="reference" readonly="1"/>
                         </h1>
                     </div>
                     <group>
-                        <field name="name"/>
-                        <field name="driver_id" attrs="{'invisible': [('state','=','pesanan')]}"/>
+                        <group attrs="{'invisible': [('state','=','pesanan')]}">
+                            <field name="name" attrs="{'readonly': [('state','!=','pesanan')]}"/>
+                            <field name="driver_id"
+                                   attrs="{'readonly': [('state','!=','diantar')], 'invisible': [('state','=','pesanan')]}"/>
+                            <field name="alamat"
+                                   attrs="{'invisible': [('state','!=','pesanan')], 'readonly': [('state','=','selesai')], 'readonly': [('state','=','batal')]}"/>
+                            <field name="jam_berangkat"
+                                   attrs="{'readonly': [('state','=','selesai')], 'invisible': [('state','!=','pesanan')]}"/>
+                        </group>
+                        <group attrs="{'invisible': [('state','=','kosong')]}">
+                            <field name="tipe_pembayaran" widget="radio"
+                                   attrs="{'readonly': [('state','=','selesai')], 'readonly': [('state','=','diantar')]}"/>
+                        </group>
                     </group>
+                    <notebook colspan="8">
+                        <page name="name" string="Pesanan">
+                            <field name="deliverydetail_id" attrs="{'readonly': [('state','=','diantar')]}">
+                                <tree editable="bottom" create="true" edit="true" delete="true">
+                                    <field name="menu_id"/>
+                                    <field name="harga_menu"/>
+                                    <field name="qty"/>
+                                    <field name="jumlah"/>
+                                </tree>
+                            </field>
+                            <!--                            <group class="oe_subtotal_footer oe_right" colspan="2"-->
+                            <!--                                   attrs="{'invisible': [('state','=','kosong')]}">-->
+                            <!--                                <field name="total" widget="monetary"-->
+                            <!--                                       options="{'currency_field': 'currency_id'}"/>-->
+                            <!--                                <field name="pajak" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                            <!--                                <field name="diskon" widget="monetary"-->
+                            <!--                                       options="{'currency_field': 'currency_id'}"/>-->
+                            <!--                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">-->
+                            <!--                                </div>-->
+                            <!--                                <field name="subtotal" nolabel="1" class="oe_subtotal_footer_separator"-->
+                            <!--                                       widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                            <!--                            </group>-->
+                            <div class="oe_clear"/>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <div class="oe_chatter">

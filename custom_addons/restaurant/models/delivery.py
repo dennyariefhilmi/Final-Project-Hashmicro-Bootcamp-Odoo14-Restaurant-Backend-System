@@ -1,13 +1,13 @@
 from odoo import fields, models, api, _
 
 
-class Delivery(models.Model):
+class delivery(models.Model):
     _name = 'restaurant.delivery'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Description'
 
     name = fields.Char('Nama Pemesan')
-    driver_id = fields.Many2one(comodel_name='restaurant.pekerja',
+    driver_id = fields.Many2one(comodel_name='restaurant.karyawan',
                                 string='Driver_id',
                                 domain=[('role', '=', 'driver')],
                                 required=False,
@@ -25,6 +25,11 @@ class Delivery(models.Model):
                             default=lambda self: _('Order ID :'),
                             tracking=True)
 
+    deliverydetail_id = fields.One2many(comodel_name='restaurant.deliverydetail',
+                                     inverse_name='delivery_id',
+                                     string='Delivery Detail ID',
+                                     required=False)
+
     alamat = fields.Text(
         string="Alamat",
         required=False, tracking=True)
@@ -41,12 +46,21 @@ class Delivery(models.Model):
         required=False,
         tracking=True)
 
+    @api.model
+    def create(self, vals):
+        if vals.get('reference', _('Order ID :')) == _('Order ID :'):
+            vals['reference'] = self.env['ir.sequence'].next_by_code('restaurant.delivery') or _('Order ID :')
+        res = super(delivery, self).create(vals)
+        return res
+
+
+
     # membuat sequence nomor delivery
     @api.model
     def create(self, vals):
         if vals.get('reference', _('Order ID :')) == _('Order ID :'):
             vals['reference'] = self.env['ir.sequence'].next_by_code('restaurant.delivery') or _('Order ID :')
-        res = super(Delivery, self).create(vals)
+        res = super(delivery, self).create(vals)
         return res
 
     def action_diantar(self):
@@ -59,7 +73,7 @@ class Delivery(models.Model):
 
 
 class deliverydetail(models.Model):
-    _name = 'restauran.deliverydetail'
+    _name = 'restaurant.deliverydetail'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'deliverydetail'
 

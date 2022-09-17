@@ -30,7 +30,7 @@ class karyawan(models.Model):
     usia = fields.Integer(string='Usia',
                           required=False,
                           tracking=True,
-                          compute='hitung_usia')
+                          compute='_hitung_usia')
 
     jadwal_ids = fields.One2many(
         comodel_name='restaurant.jadwal',
@@ -63,25 +63,32 @@ class karyawan(models.Model):
                             default=lambda self: _('ID Karyawan'), tracking=True)
 
     # menghitung umur karyawan
+    # computing age
     @api.depends('tanggal_lahir')
-    def hitung_usia(self):
-        if self.tanggal_lahir is not False:
-            self.usia = (datetime.today().date() - datetime.strptime(str(self.tanggal_lahir),
-                                                                     '%Y-%m-%d').date()) // timedelta(days=365)
+    def _hitung_usia(self):
+        for record in self:
+            if record.tanggal_lahir is not False:
+                record.usia = (datetime.today().date() - datetime.strptime(str(record.tanggal_lahir),
+                                                                          '%Y-%m-%d').date()) // timedelta(days=365)
+            else:
+                record.age = 0.0
 
+    # computing working time
     @api.depends('mulai_bekerja')
     # @api.multi
     def _lama_bekerja(self):
-        if self.mulai_bekerja:
-            years = relativedelta(date.today(), self.mulai_bekerja).years
-            months = relativedelta(date.today(), self.mulai_bekerja).months
-            day = relativedelta(date.today(), self.mulai_bekerja).days
-        self.lama_bekerja = str(int(years)) + ' Tahun ' + str(int(months)) + ' Bulan ' + str(day) + ' Hari'
-
+        for record in self:
+            if record.mulai_bekerja:
+                years = relativedelta(date.today(), record.mulai_bekerja).years
+                months = relativedelta(date.today(), record.mulai_bekerja).months
+                day = relativedelta(date.today(), record.mulai_bekerja).days
+                record.lama_bekerja = str(int(years)) + ' Tahun ' + str(int(months)) + ' Bulan ' + str(day) + ' Hari'
+            else:
+                record.lama_bekerja = '0 Tahun 0 Bulan 0 Hari'
     @api.model
     def create(self, vals):
         if vals.get('reference', _('ID Karyawan')) == _('ID Karyawan'):
-            vals['reference'] = self.env['ir.sequence'].next_by_code('restaurant.karywan') or _('ID Karyawan')
+            vals['reference'] = self.env['ir.sequence'].next_by_code('restaurant.karyawan') or _('ID Karyawan')
         res = super(karyawan, self).create(vals)
         return res
 
@@ -138,4 +145,3 @@ class Jadwal(models.Model):
         comodel_name='restaurant.karyawan',
         string='Jadwal_shift',
         required=False, tracking=True)
-
