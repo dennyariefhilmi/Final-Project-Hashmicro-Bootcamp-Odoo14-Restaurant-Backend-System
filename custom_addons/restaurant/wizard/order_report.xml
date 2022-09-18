@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="order_report_form" model="ir.ui.view">
+        <field name="name">order_report_form</field>
+        <field name="model">restaurant.orderreport</field>
+        <field name="arch" type="xml">
+            <form string="order_report_form">
+                <group>
+                    <field name="reference"/>
+                </group>
+                <footer>
+                    <button name="action_order_report" type="object" string="Print Report" class="btn btn-warning"/>
+                    <button special="cancel" string="Cancel" class="btn btn-danger"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+   <record id="order_report_wizard_action" model="ir.actions.act_window">
+       <field name="name">order_report_wizard_action</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">restaurant.orderreport</field>
+       <field name="view_mode">form</field>
+       <field name="view_id" ref="order_report_form"/>
+       <field name="target">new</field>
+   </record
+</odoo>

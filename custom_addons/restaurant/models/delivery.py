@@ -62,8 +62,8 @@ class delivery(models.Model):
     sesudah_pajak = fields.Integer(compute='_compute_sesudah_pajak',
                                    required=False)
 
-    # ongkos_kirim = fields.Integer('Ongkos Kirim', compute='_compute_ongkir',
-    #                         required=False)
+    ongkos_kirim = fields.Integer('Ongkos Kirim',
+                            required=False, default=10000, readonly=True)
 
     # sequence ID Order
     @api.model
@@ -76,7 +76,7 @@ class delivery(models.Model):
     @api.depends('total', 'pajak')
     def _compute_subtotal(self):
         for rec in self:
-            rec.subtotal = rec.total + rec.pajak
+            rec.subtotal = rec.total + rec.pajak + rec.ongkos_kirim
 
     # @api.depends('sesudah_pajak', 'ongkos_kirim')
     # def _compute_ongkir(self):

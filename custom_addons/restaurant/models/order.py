@@ -100,12 +100,12 @@ class order(models.Model):
     @api.depends('total', 'pajak', 'diskon')
     def _compute_subtotal(self):
         for rec in self:
-            rec.subtotal = rec.total + rec.pajak + rec.diskon
+            rec.subtotal = rec.total + rec.pajak - rec.diskon
 
     @api.depends('sesudah_pajak', 'diskon')
     def _compute_diskon(self):
         for rec in self:
-            rec.diskon = rec.sesudah_pajak * 0.05 / 100
+            rec.diskon = rec.sesudah_pajak * 0.05
 
     # menghitung pajak
     @api.depends('total', 'pajak')

@@ -70,7 +70,7 @@
                                        options="{'currency_field': 'currency_id'}"/>
                                 <field name="pajak" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 <field name="diskon" widget="monetary"
-                                       options="{'currency_field': 'currency_id'}"/>
+                                       options="{'currency_field': 'currency_id'}" attrs="{'invisible': [('member','=',False)]}"/>
                                 <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                                 </div>
                                 <field name="subtotal" nolabel="1" class="oe_subtotal_footer_separator"
