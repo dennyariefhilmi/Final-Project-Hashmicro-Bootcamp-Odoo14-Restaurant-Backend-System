@@ -7,8 +7,14 @@
             <tree string="inventory_tree">
                 <field name="name"/>
                 <field name="merk"/>
-                <field name="tipe"/>
+                <field name="tipe"
+                       decoration-primary="tipe=='alat_masak'"
+                       decoration-success="tipe=='alat_makan'"
+                       decoration-warning="tipe=='alat_elektronik'"
+                       widget="badge"
+                />
                 <field name="qty"/>
+                <field name="supplier_id"/>
             </tree>
         </field>
     </record>

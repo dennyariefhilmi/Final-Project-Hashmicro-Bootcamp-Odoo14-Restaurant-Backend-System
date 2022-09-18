@@ -33,7 +33,7 @@
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Done" bg-color="bg-success"
-                            attrs="{'invisibility': [('state','=','kosong'),('state','=','full')]}"/>
+                            attrs="{'invisible': [('state','!=','selesai')]}"/>
                     <div class="oe_title">
                         <h1>
                             <field name="reference" readonly="1"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    
+
     <record id="bahan_view_tree" model="ir.ui.view">
         <field name="name">bahan_view_tree</field>
         <field name="model">restaurant.bahan</field>
@@ -11,6 +11,7 @@
                 <field name="qty"/>
                 <field name="tgl_datang"/>
                 <field name="kadaluarsa"/>
+                <field name="supplier_id"/>
             </tree>
         </field>
     </record>

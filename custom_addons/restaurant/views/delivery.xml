@@ -9,7 +9,12 @@
                 <field name="reference" readonly="1"/>
                 <field name="name"/>
                 <field name="driver_id"/>
-                <field name="state"/>
+                <field name="state"
+                       decoration-primary="state=='diantar'"
+                       decoration-success="state=='selesai'"
+                       decoration-warning="state=='pesanan'"
+                       decoration-danger="state=='batal'"
+                       widget="badge"/>
                 <field name="alamat"/>
                 <field name="jam_berangkat"/>
             </tree>
@@ -33,30 +38,32 @@
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Done" bg-color="bg-success"
-                            attrs="{'invisibility': [('state','!=','selesai')]}"/>
+                            attrs="{'invisible': [('state','!=','selesai')]}"/>
+                    <widget name="web_ribbon" title="Batal" bg-color="bg-warning"
+                            attrs="{'invisible': [('state','!=','batal')]}"/>
                     <div class="oe_title">
                         <h1>
                             <field name="reference" readonly="1"/>
                         </h1>
                     </div>
                     <group>
-                        <group attrs="{'invisible': [('state','=','pesanan')]}">
+                        <group attrs="{'readonly': [('state','!=','pesanan')]}">
                             <field name="name" attrs="{'readonly': [('state','!=','pesanan')]}"/>
                             <field name="driver_id"
-                                   attrs="{'readonly': [('state','!=','diantar')], 'invisible': [('state','=','pesanan')]}"/>
+                                   attrs="{'readonly': [('state','!=','pesanan')]}"/>
                             <field name="alamat"
-                                   attrs="{'invisible': [('state','!=','pesanan')], 'readonly': [('state','=','selesai')], 'readonly': [('state','=','batal')]}"/>
+                                   attrs="{'readonly': [('state','!=','pesanan')]}"/>
                             <field name="jam_berangkat"
-                                   attrs="{'readonly': [('state','=','selesai')], 'invisible': [('state','!=','pesanan')]}"/>
+                                   attrs="{'readonly': [('state','!=','pesanan')]}"/>
                         </group>
-                        <group attrs="{'invisible': [('state','=','kosong')]}">
+                        <group attrs="{'readonly': [('state','!=','pesanan')]}">
                             <field name="tipe_pembayaran" widget="radio"
-                                   attrs="{'readonly': [('state','=','selesai')], 'readonly': [('state','=','diantar')]}"/>
+                                   attrs="{'readonly': [('state','!=','pesanan')]}"/>
                         </group>
                     </group>
                     <notebook colspan="8">
                         <page name="name" string="Pesanan">
-                            <field name="deliverydetail_id" attrs="{'readonly': [('state','=','diantar')]}">
+                            <field name="deliverydetail_id" attrs="{'readonly': [('state','!=','pesanan')]}">
                                 <tree editable="bottom" create="true" edit="true" delete="true">
                                     <field name="menu_id"/>
                                     <field name="harga_menu"/>
@@ -64,15 +71,15 @@
                                     <field name="jumlah"/>
                                 </tree>
                             </field>
-                            <group class="oe_subtotal_footer oe_right" colspan="2"
-                                   attrs="{'invisible': [('state','=','kosong')]}">
+                            <group class="oe_subtotal_footer oe_right" colspan="2" readonly="1">
                                 <field name="total" widget="monetary"
-                                       options="{'currency_field': 'currency_id'}"/>
-                                <field name="pajak" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                       options="{'currency_field': 'currency_id'}" readonly="1"/>
+                                <field name="pajak" widget="monetary" options="{'currency_field': 'currency_id'}"
+                                       readonly="1"/>
                                 <div class="oe_subtotal_footer_separator oe_inline o_td_label">
                                 </div>
                                 <field name="subtotal" nolabel="1" class="oe_subtotal_footer_separator"
-                                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                       widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
                             </group>
                             <div class="oe_clear"/>
                         </page>

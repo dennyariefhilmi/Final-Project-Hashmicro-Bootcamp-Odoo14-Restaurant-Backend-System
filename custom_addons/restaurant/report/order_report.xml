@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="report_order_pdf">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+            <!-- <t t-call="web.external_layout"> -->
+                <div class="page">
+                    <h1>Order Invoice</h1>
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="row">
+                            <div class="col-4">No. Order :</div>
+                            <div class="col-8"><span t-field="doc.order"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">Table : </div>
+                            <div class="col-8"><span t-field="doc.name"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">Jumlah Orang :</div>
+                            <div class="col-8"><span t-field="doc.jml_orang"/></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">Tipe Pembayaran:</div>
+                            <div class="col-8"><span t-field="doc.tipe_pembayaran"/></div>
+                        </div>
+                         <div class="row" attrs="{'invisible' :[('member','=','False')]}">
+                            <div class="col-4">Nama Member : </div>
+                            <div class="col-8"><span t-field="doc.member_ids"/></div>
+                        </div>
+                    <!-- <table class="table table-condensed table-bordered" style="border: 2px solid black !important;">
+                        <thead>
+                            <tr>
+                                <th>Nama Barang</th>
+                                <th>Satuan</th>
+                                <th>Harga Jual</th>
+                                <th>Kuantiti</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-as="penjualandetail" t-foreach="doc.penjualandetail_ids">
+                                <td>
+                                    <span t-field="penjualandetail.barang_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="penjualandetail.satuan"/>
+                                </td>
+                                <td>
+                                    <span t-field="penjualandetail.harga_jual"/>
+                                </td>
+                                <td>
+                                    <span t-field="penjualandetail.qty"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table> -->
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -31,6 +31,7 @@
         'wizard/pembatalan.xml',
         'wizard/tambah_bahan.xml',
         'wizard/tambah_inventory.xml',
+        'report/report.xml',
         'views/templates.xml',
         'views/menu.xml',
         'views/inventory.xml',

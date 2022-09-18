@@ -16,34 +16,40 @@
         <field name="name">menu_makanan_kanban</field>
         <field name="model">restaurant.menu_makanan</field>
         <field name="arch" type="xml">
-            <kanban>
+            <kanban default_group_by="tipe" create="false">
                 <field name="name"/>
                 <field name="tipe"/>
                 <field name="harga_menu"/>
                 <field name="img_makanan" widget="image" class="img-circle" width="50" height="75"/>
                 <field name="deskripsi"/>
+
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe kanban_global_click">
-                            <div class="oe_kanban_global">
-                                <div class="container">
-                                    <group>
-                                        <group>
-                                            <field name="img_makanan" widget="image" class="img-circle" width="100"
-                                                   height="100"/>
-                                        </group>
-                                        <group>
-                                            <ul>
-                                            <field name="name"/>
-                                            <field name="tipe"/>
-                                            <field name="harga_menu"/>
-                                            </ul>
-                                        </group>
-                                    </group>
+                        <div class="kitchen_kanban oe_kanban_color_0 oe_kanban_card">
+                            <div class="oe_kanban_box_header ">
+                                <b>
+                                    <field name="name"/>
+                                </b>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <img style="float:left;"
+                                     t-att-src="kanban_image('restaurant.menu_makanan.img_makanan', 'image_medium', record.img_makanan.raw_value)"
+                                     class="oe_kanban_image"/>
+                                <div>
+                                    <b>
+                                        <field name="tipe"/>
+                                    </b>
+                                </div>
+                                <div>
+                                    <field name="harga_menu"/>
+                                </div>
+                                <div>
+                                    <field name="deskripsi"/>
+                                    <!--                                <field name="product_uom"/>-->
                                 </div>
                             </div>
+                            <div class="oe_clear"></div>
                         </div>
-
                     </t>
                 </templates>
             </kanban>

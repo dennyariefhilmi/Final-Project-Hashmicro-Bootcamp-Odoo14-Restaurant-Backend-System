@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_order_pdf" model="ir.actions.report">
+        <field name="name">Invoice Order</field>
+        <field name="model">restaurant.delivery</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">restaurant.report_order_pdf</field>
+        <field name="report_file">restaurant.report_order_pdf</field>
+        <field name="binding_model_id" ref="model_restaurant_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_bahan_xlsx" model="ir.actions.report">
+        <field name="name">Bahan Makanan Excel</field>
+        <field name="model">restaurant.bahan</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">restaurant.report_bahan_xlsx</field>
+        <field name="report_file">restaurant.report_bahan_xlsx</field>
+        <field name="binding_model_id" ref="model_restaurant_bahan"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
