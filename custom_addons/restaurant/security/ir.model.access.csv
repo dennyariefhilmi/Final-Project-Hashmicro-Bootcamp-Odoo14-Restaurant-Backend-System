@@ -12,3 +12,5 @@ access_restaurant_jadwal,restaurant.jadwal,model_restaurant_jadwal,base.group_us
 access_restaurant_pembatalan,restaurant.pembatalan,model_restaurant_pembatalan,base.group_user,1,1,1,1
 access_restaurant_delivery,restaurant.delivery,model_restaurant_delivery,base.group_user,1,1,1,1
 access_restaurant_deliverydetail,restaurant.deliverydetail,model_restaurant_deliverydetail,base.group_user,1,1,1,1
+access_restaurant_tambah_bahan,restaurant.tambah_bahan,model_restaurant_tambah_bahan,base.group_user,1,1,1,1
+access_restaurant_tambah_inventory,restaurant.tambah_inventory,model_restaurant_tambah_inventory,base.group_user,1,1,1,1

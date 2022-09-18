@@ -14,11 +14,17 @@
             </tree>
         </field>
     </record>
+
+
     <record id="bahan_view_form" model="ir.ui.view">
         <field name="name">bahan_view_form</field>
         <field name="model">restaurant.bahan</field>
         <field name="arch" type="xml">
             <form string="bahan_form">
+                <header>
+                    <button name="%(restaurant.tambah_bahan_view_wizard)d" type="action" string="Tambah Stok"
+                            class="btn btn-primary"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>

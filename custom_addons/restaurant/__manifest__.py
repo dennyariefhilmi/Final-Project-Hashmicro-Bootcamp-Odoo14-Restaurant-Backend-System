@@ -21,7 +21,7 @@
     'application' : True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'report_xlsx'],
 
     # always loaded
     'data': [
@@ -29,6 +29,8 @@
         'views/views.xml',
         'data/data.xml',
         'wizard/pembatalan.xml',
+        'wizard/tambah_bahan.xml',
+        'wizard/tambah_inventory.xml',
         'views/templates.xml',
         'views/menu.xml',
         'views/inventory.xml',

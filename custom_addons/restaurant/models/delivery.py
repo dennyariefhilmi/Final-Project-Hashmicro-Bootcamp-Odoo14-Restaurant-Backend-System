@@ -26,9 +26,9 @@ class delivery(models.Model):
                             tracking=True)
 
     deliverydetail_id = fields.One2many(comodel_name='restaurant.deliverydetail',
-                                     inverse_name='delivery_id',
-                                     string='Delivery Detail ID',
-                                     required=False)
+                                        inverse_name='delivery_id',
+                                        string='Delivery Detail ID',
+                                        required=False)
 
     alamat = fields.Text(
         string="Alamat",
@@ -46,6 +46,26 @@ class delivery(models.Model):
         required=False,
         tracking=True)
 
+    total = fields.Integer(
+        string='Subtotal',
+        required=False,
+        compute='_compute_total')
+
+    pajak = fields.Integer(string='PPN 10%',
+                           compute='_compute_pajak',
+                           required=False)
+
+    subtotal = fields.Integer(string='Grand Total',
+                              compute='_compute_subtotal',
+                              required=False)
+
+    sesudah_pajak = fields.Integer(compute='_compute_sesudah_pajak',
+                                   required=False)
+
+    # ongkos_kirim = fields.Integer('Ongkos Kirim', compute='_compute_ongkir',
+    #                         required=False)
+
+    # sequence ID Order
     @api.model
     def create(self, vals):
         if vals.get('reference', _('Order ID :')) == _('Order ID :'):
@@ -53,7 +73,33 @@ class delivery(models.Model):
         res = super(delivery, self).create(vals)
         return res
 
+    @api.depends('total', 'pajak')
+    def _compute_subtotal(self):
+        for rec in self:
+            rec.subtotal = rec.total + rec.pajak
 
+    # @api.depends('sesudah_pajak', 'ongkos_kirim')
+    # def _compute_ongkir(self):
+    #     for rec in self:
+    #         rec.ongkos_kirim = rec.sesudah_pajak * 10000
+
+    # menghitung pajak
+    @api.depends('total', 'pajak')
+    def _compute_sesudah_pajak(self):
+        for rec in self:
+            rec.sesudah_pajak = rec.total + rec.pajak
+
+    @api.depends('total', 'pajak')
+    def _compute_pajak(self):
+        for rec in self:
+            rec.pajak = rec.total * 0.10
+
+    @api.depends('deliverydetail_id')
+    def _compute_total(self):
+        for record in self:
+            a = sum(self.env['restaurant.deliverydetail'].search(
+                [('delivery_id', '=', record.id)]).mapped('jumlah'))
+            record.total = a
 
     # membuat sequence nomor delivery
     @api.model
